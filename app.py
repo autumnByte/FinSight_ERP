@@ -16,7 +16,7 @@ st.set_page_config(
     page_title="FinSight ERP",
     page_icon="🌿",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 
 # ─────────────────────────────────────────────
@@ -52,9 +52,24 @@ html, body, [data-testid="stAppViewContainer"] {
 [data-testid="stSidebar"] {
     background: var(--navy2) !important;
     border-right: 1px solid var(--border) !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 [data-testid="stSidebar"] * { color: var(--text) !important; }
+
+[data-testid="collapsedControl"] {
+    display: flex !important;
+    visibility: visible !important;
+    color: #22c55e !important;
+    background: #0c1f17 !important;
+    border: 1px solid #1a3d2b !important;
+    border-radius: 0 8px 8px 0 !important;
+    z-index: 1000 !important;
+}
+
+[data-testid="collapsedControl"] svg { fill: #22c55e !important; }
 
 .main .block-container { padding: 1.5rem 2rem !important; max-width: 1600px !important; }
 
@@ -82,6 +97,7 @@ h1, h2, h3, h4 { font-family: 'Inter', sans-serif !important; color: var(--text)
     background: linear-gradient(90deg, #22c55e, #10b981);
 }
 .metric-card:hover { border-color: var(--accent); }
+
 .metric-label {
     font-size: 0.72rem;
     font-weight: 700;
@@ -151,9 +167,9 @@ h1, h2, h3, h4 { font-family: 'Inter', sans-serif !important; color: var(--text)
 }
 .insight-title { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
 .insight-body  { font-size: 0.8rem; color: var(--text2); line-height: 1.5; }
-.insight-card.warn { border-left-color: var(--yellow); }
+.insight-card.warn   { border-left-color: var(--yellow); }
 .insight-card.danger { border-left-color: var(--red); }
-.insight-card.good  { border-left-color: var(--green); }
+.insight-card.good   { border-left-color: var(--green); }
 
 .alert {
     background: #ef444415;
@@ -231,171 +247,71 @@ h1, h2, h3, h4 { font-family: 'Inter', sans-serif !important; color: var(--text)
 ::-webkit-scrollbar-track { background: var(--navy); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-/* Hide Streamlit native toolbar */
-[data-testid="stToolbar"] { display: none !important; }
+/* ── Hide Streamlit chrome ── */
+[data-testid="stToolbar"]    { display: none !important; }
 [data-testid="stDecoration"] { display: none !important; }
 header[data-testid="stHeader"] { display: none !important; }
 [data-testid="stAppViewContainer"] > section:first-child { padding-top: 0 !important; }
-/* ─── MOBILE RESPONSIVE ─── */
-@media (max-width: 768px) {
 
-    /* Main container padding */
-    .main .block-container {
-        padding: 0.75rem 0.75rem !important;
-    }
-
-    /* Header bar — stack vertically on small screens */
-    [data-testid="stAppViewContainer"] .block-container > div:first-child div[style*="display:flex"] {
-        flex-wrap: wrap !important;
-        gap: 0.5rem !important;
-    }
-
-    /* Metric cards — full width stack */
-    .metric-card {
-        height: auto !important;
-        min-height: 110px !important;
-    }
-
-    .metric-value {
-        font-size: clamp(1.1rem, 5vw, 1.5rem) !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-
-    .metric-label {
-        font-size: 0.65rem !important;
-    }
-
-    .metric-sub {
-        font-size: 0.65rem !important;
-        white-space: normal !important;
-        line-height: 1.3 !important;
-    }
-
-    .metric-icon {
-        font-size: 1rem !important;
-        top: 0.6rem !important;
-        right: 0.6rem !important;
-    }
-
-    /* Section headers */
-    .section-header {
-        margin: 1rem 0 0.6rem !important;
-        padding: 0.4rem 0.6rem !important;
-    }
-
-    .section-header h2 {
-        font-size: 0.75rem !important;
-    }
-
-    /* Insight cards */
-    .insight-card {
-        padding: 0.75rem 0.9rem !important;
-    }
-
-    .insight-title {
-        font-size: 0.8rem !important;
-    }
-
-    .insight-body {
-        font-size: 0.74rem !important;
-    }
-
-    /* Badges */
-    .badge-high, .badge-medium, .badge-low {
-        font-size: 0.65rem !important;
-        padding: 1px 5px !important;
-    }
-
-    /* Tables */
-    .styled-table th, .styled-table td {
-        padding: 0.4rem 0.5rem !important;
-        font-size: 0.72rem !important;
-    }
-
-    /* Alert boxes */
-    .alert, .alert-warn {
-        font-size: 0.75rem !important;
-        padding: 0.6rem 0.8rem !important;
-    }
-
-    /* Query result box */
-    .query-result {
-        padding: 0.75rem 0.9rem !important;
-    }
-
-    /* Upload hero */
-    .upload-hero {
-        padding: 2rem 1rem !important;
-    }
-
-    .upload-hero h2 {
-        font-size: 1.1rem !important;
-    }
-
-    .upload-hero p {
-        font-size: 0.8rem !important;
-    }
-
-    /* Sidebar — full width overlay on mobile */
-    [data-testid="stSidebar"] {
-        min-width: 100vw !important;
-        max-width: 100vw !important;
-    }
-
-    /* Plotly charts — prevent overflow */
-    .stPlotlyChart {
-        width: 100% !important;
-        overflow-x: auto !important;
-    }
-
-    /* Streamlit columns — force single column stacking */
-    [data-testid="column"] {
-        min-width: 100% !important;
-        width: 100% !important;
-    }
-
-    /* Dataframes — horizontal scroll */
-    [data-testid="stDataFrame"] {
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-    }
-
-    /* Download buttons */
-    .stDownloadButton button {
-        width: 100% !important;
-        font-size: 0.8rem !important;
-    }
-
-    /* Suggestion buttons in Ask Your Data */
-    .stButton button {
-        font-size: 0.75rem !important;
-        padding: 0.3rem 0.5rem !important;
-    }
-
-    /* Text input */
-    .stTextInput input {
-        font-size: 0.85rem !important;
-    }
-
-    /* Scrollbar thinner on mobile */
-    ::-webkit-scrollbar { width: 3px; height: 3px; }
+/* ── Tablet (769px – 1024px) ── */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .main .block-container { padding: 1rem 1.2rem !important; }
+    .metric-card  { height: 145px !important; }
+    .metric-value { font-size: clamp(0.9rem, 1.8vw, 1.4rem) !important; }
 }
 
-/* Tablet breakpoint */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .metric-value {
-        font-size: clamp(0.9rem, 1.8vw, 1.4rem) !important;
+/* ── Mobile (≤ 768px) — single block, no conflicts ── */
+@media (max-width: 768px) {
+    .main .block-container { padding: 0.75rem 0.75rem !important; }
+
+    .metric-card  { height: auto !important; min-height: 110px !important; }
+    .metric-value { font-size: clamp(1rem, 4.5vw, 1.4rem) !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+    .metric-label { font-size: 0.65rem !important; }
+    .metric-sub   { font-size: 0.65rem !important; white-space: normal !important; line-height: 1.3 !important; }
+    .metric-icon  { font-size: 1rem !important; top: 0.6rem !important; right: 0.6rem !important; }
+
+    .section-header    { margin: 1rem 0 0.6rem !important; padding: 0.4rem 0.6rem !important; }
+    .section-header h2 { font-size: 0.75rem !important; }
+
+    .insight-card  { padding: 0.75rem 0.9rem !important; }
+    .insight-title { font-size: 0.8rem !important; }
+    .insight-body  { font-size: 0.74rem !important; }
+
+    .badge-high, .badge-medium, .badge-low { font-size: 0.65rem !important; padding: 1px 5px !important; }
+    .styled-table th, .styled-table td     { padding: 0.4rem 0.5rem !important; font-size: 0.72rem !important; }
+    .alert, .alert-warn  { font-size: 0.75rem !important; padding: 0.6rem 0.8rem !important; }
+    .query-result        { padding: 0.75rem 0.9rem !important; }
+
+    .upload-hero    { padding: 2rem 1rem !important; }
+    .upload-hero h2 { font-size: 1.1rem !important; }
+    .upload-hero p  { font-size: 0.8rem !important; }
+
+    [data-testid="stSidebar"] {
+        min-width: 78vw !important;
+        max-width: 82vw !important;
+        position: fixed !important;
+        z-index: 999 !important;
+        top: 0 !important;
+        left: 0 !important;
+        height: 100vh !important;
+        overflow-y: auto !important;
+        transform: none !important;
+    }
+    [data-testid="collapsedControl"] {
+        position: fixed !important;
+        left: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 1000 !important;
+        padding: 0.5rem !important;
     }
 
-    .main .block-container {
-        padding: 1rem 1.2rem !important;
-    }
-
-    .metric-card {
-        height: 145px !important;
-    }
+    .stPlotlyChart { width: 100% !important; overflow-x: auto !important; }
+    [data-testid="stDataFrame"] { overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
+    .stDownloadButton button { width: 100% !important; font-size: 0.8rem !important; }
+    .stButton button   { font-size: 0.75rem !important; padding: 0.3rem 0.5rem !important; }
+    .stTextInput input { font-size: 0.85rem !important; }
+    ::-webkit-scrollbar { width: 3px; height: 3px; }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -1281,6 +1197,8 @@ def section(icon, title):
 #  MAIN APP
 # ─────────────────────────────────────────────
 def main():
+    if "sidebar_open" not in st.session_state:
+        st.session_state.sidebar_open = True
     with st.sidebar:
         st.markdown("## 🌿 FinSight ERP")
         st.markdown('<div class="sidebar-section">Data Upload</div>', unsafe_allow_html=True)
@@ -1305,6 +1223,14 @@ def main():
             </div>
         </div>
         <div style="height:0.75rem;"></div>
+                if not st.sidebar._is_collapsed if hasattr(st.sidebar, '_is_collapsed') else False:
+        pass
+    
+    col_btn, col_rest = st.columns([0.05, 0.95])
+    with col_btn:
+        if st.button("☰", key="open_sidebar", help="Open sidebar"):
+            st.session_state.sidebar_open = True
+            st.rerun()
     """, unsafe_allow_html=True)
 
     if uploaded_file is None:
